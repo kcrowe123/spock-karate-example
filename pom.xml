@@ -17,7 +17,7 @@
         <java.version>11</java.version>
         <spock.version>2.0-M2-groovy-2.5</spock.version>
         <groovy.version>2.5.10</groovy.version>
-        <karate.version>0.9.5</karate.version>
+        <karate.version>1.0.1</karate.version>
     </properties>
     <dependencies>
         <dependency>
@@ -84,25 +84,7 @@
         <!-- Karate Dependencies -->
         <dependency>
             <groupId>com.intuit.karate</groupId>
-            <artifactId>karate-apache</artifactId>
-            <version>${karate.version}</version>
-            <scope>test</scope>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>logback-core</artifactId>-->
-<!--                    <groupId>ch.qos.logback</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-        </dependency>
-        <dependency>
-            <groupId>com.intuit.karate</groupId>
-            <artifactId>karate-junit5</artifactId>
-            <version>${karate.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.intuit.karate</groupId>
-            <artifactId>karate-mock-servlet</artifactId>
+            <artifactId>karate-core</artifactId>
             <version>${karate.version}</version>
             <scope>test</scope>
         </dependency>
