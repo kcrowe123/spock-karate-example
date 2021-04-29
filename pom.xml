@@ -145,25 +145,7 @@
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.6.2</version>
-                <configuration>
-                    <sources>
-                        <source>
-                            <directory>${project.basedir}/src/test/java</directory>
-                            <includes>
-                                <include>**/*.groovy</include>
-                            </includes>
-                        </source>
-                    </sources>
-                    <testSources>
-                        <testSource>
-                            <directory>${project.basedir}/src/test/java</directory>
-                            <includes>
-                                <include>**/*.groovy</include>
-                            </includes>
-                        </testSource>
-                    </testSources>
-                </configuration>
+                <version>1.12.1</version>
                 <executions>
                     <execution>
                         <goals>
