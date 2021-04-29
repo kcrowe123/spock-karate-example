@@ -12,4 +12,5 @@ Feature: Test Message
   Then status 200
 
   * print 'foo value ' + karate.properties['foo']
-  * print 'message value ' + karate.properties['message']
+  * def getMessage = function() { return Java.type('java.lang.System').getProperty('message'); }
+  * print 'message value ' + getMessage()
