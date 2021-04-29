@@ -1,6 +1,5 @@
 package com.example.spock.karate
 
-import com.intuit.karate.Results
 import com.intuit.karate.Runner
 import org.spockframework.spring.SpringBean
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,7 +16,7 @@ class ApiTestRunnerSpec extends Specification {
     MessageLogger messageLogger = Mock() {
         1 * logMessage(_ as String) >> { String message ->
             assert message != null
-            MessageHolder.INSTANCE.message = message
+            System.setProperty('message', message)
         }
     }
 
@@ -27,29 +26,7 @@ class ApiTestRunnerSpec extends Specification {
     }
 
     def "Run Mock ApiTest"() {
-        given:
-        Results results = Runner
-          .path("classpath:")
-          .systemProperty("foo", "bar")
-          .tags("~@ignore")
-          .parallel(5)
-
         expect:
-        results
-    }
-    
-    static class MessageHolder {
-        public static final MessageHolder INSTANCE = new MessageHolder()
-        private String message
-
-        private MessageHolder() {}
-
-        String getMessage() {
-            return message
-        }
-
-        void setMessage(String message) {
-            this.message = message
-        }
+        Runner.path("classpath:").systemProperty("foo", "bar").tags("~@ignore").parallel(5)
     }
 }
