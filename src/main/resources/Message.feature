@@ -12,4 +12,12 @@ Feature: Test Message
   Then status 200
 
   * print 'foo value ' + karate.properties['foo']
-  * print 'message value ' + karate.properties['message']
+  * def getMessage =
+    """
+    function() {
+      var MessageHolder = Java.type('com.example.spock.karate.ApiTestRunnerSpec.MessageHolder');
+      return MessageHolder.INSTANCE.getMessage();
+    }
+    """
+  * def message = call getMessage {}
+  * print 'message value ' + message

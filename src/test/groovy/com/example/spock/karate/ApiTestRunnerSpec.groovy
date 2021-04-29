@@ -14,7 +14,12 @@ class ApiTestRunnerSpec extends Specification {
     private int port
 
     @SpringBean
-    MessageLogger messageLogger = Mock()
+    MessageLogger messageLogger = Mock() {
+        1 * logMessage(_ as String) >> { String message ->
+            assert message != null
+            MessageHolder.INSTANCE.message = message
+        }
+    }
 
     def "setup"() {
         System.out.println("Running on port: " + port)
@@ -23,18 +28,28 @@ class ApiTestRunnerSpec extends Specification {
 
     def "Run Mock ApiTest"() {
         given:
-        System.setProperty('foo', 'bar')
+        Results results = Runner
+          .path("classpath:")
+          .systemProperty("foo", "bar")
+          .tags("~@ignore")
+          .parallel(5)
 
-        when:
-        Results results = Runner.path("classpath:").tags("~@ignore").parallel(5)
+        expect:
+        results
+    }
+    
+    static class MessageHolder {
+        public static final MessageHolder INSTANCE = new MessageHolder()
+        private String message
 
-        then:
-        results != null
-        1 * messageLogger.logMessage(_ as String) >> { String message ->
-            println "### message = $message"
-            assert message != null
-            System.setProperty('message', message)
-            println "### " + System.getProperty('message')
+        private MessageHolder() {}
+
+        String getMessage() {
+            return message
+        }
+
+        void setMessage(String message) {
+            this.message = message
         }
     }
 }
