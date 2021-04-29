@@ -31,8 +31,10 @@ class ApiTestRunnerSpec extends Specification {
         then:
         results != null
         1 * messageLogger.logMessage(_ as String) >> { String message ->
+            println "### message = $message"
             assert message != null
-            System.setProperty("message", message)
+            System.setProperty('message', message)
+            println "### " + System.getProperty('message')
         }
     }
 }
